@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</p>
+<p class="p1">&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</p>
+<p class="p1">&lt;meta name="apple-mobile-web-app-status-bar-style" content="default"&gt;</p>
+<p class="p1">&lt;meta name="apple-mobile-web-app-title" content="Better Than Yesterday"&gt;</p>
+<p class="p1">&lt;meta name="theme-color" content="#f5f3ff"&gt;</p>
+<p class="p1">&lt;title&gt;Better Than Yesterday&lt;/title&gt;</p>
+<p class="p1">&lt;link rel="manifest" href="manifest.json"&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(150deg, #f5f3ff 0%, #eff6ff 50%, #ecfdf5 100%); min-height: 100vh; color: #1e1b4b; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.screen { display: none; flex-direction: column; max-width: 430px; margin: 0 auto; padding: 48px 20px 40px; min-height: 100vh; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.screen.on { display: flex; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>button { font-family: inherit; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.back { background: none; border: none; color: #9ca3af; font-size: 14px; cursor: pointer; padding: 0 0 20px; text-align: left; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.date-lbl { font-size: 11px; color: #9ca3af; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 6px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>h1 { font-size: 30px; font-weight: 600; line-height: 1.2; margin-bottom: 8px; color: #1e1b4b; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.sub { font-size: 15px; color: #6b7280; line-height: 1.55; margin-bottom: 28px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn { width: 100%; padding: 17px; font-size: 16px; font-weight: 600; background: linear-gradient(135deg, #6d28d9, #2563eb); color: #fff; border: none; border-radius: 18px; cursor: pointer; margin-bottom: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.ghost { width: 100%; padding: 17px; font-size: 16px; font-weight: 600; background: transparent; color: #4c1d95; border: 1.5px solid #c4b5fd; border-radius: 18px; cursor: pointer; margin-bottom: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.sp { flex: 1; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.card { background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 22px; margin-bottom: 14px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.streak-n { font-size: 44px; font-weight: 700; color: #1e1b4b; text-align: center; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.streak-l { font-size: 13px; color: #6b7280; text-align: center; margin-top: 2px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.mini { border-radius: 14px; padding: 14px; border: 1px solid #e5e7eb; background: #fff; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.mini-lbl { font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: #9ca3af; margin-bottom: 3px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.mini-val { font-size: 13px; color: #9ca3af; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.gcard { border-radius: 20px; padding: 20px; border: 1.5px solid #e5e7eb; background: #fff; margin-bottom: 12px; cursor: pointer; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.gcard .hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tag { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #9ca3af; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.circle { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #d1d5db; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; font-weight: 700; color: #fff; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.gtxt { font-size: 15px; line-height: 1.6; color: #1e1b4b; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.pbar-wrap { background: #e5e7eb; border-radius: 99px; height: 5px; margin-bottom: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.pbar { height: 5px; border-radius: 99px; background: linear-gradient(90deg, #6d28d9, #2563eb); width: 0%; transition: width .4s; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.plbl { font-size: 13px; color: #6b7280; margin-bottom: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.load-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 20px; margin-bottom: 12px; min-height: 88px; display: flex; align-items: center; justify-content: center; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.shimmer { color: #9ca3af; font-size: 14px; animation: pulse 1.4s ease-in-out infinite; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@keyframes pulse { 0%, 100% { opacity: .3; } 50% { opacity: 1; } }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.sec-lbl { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.wcard { background: linear-gradient(135deg, #ede9fe, #dbeafe); border: 1px solid #c4b5fd; border-radius: 20px; padding: 22px; margin-bottom: 14px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tcard { background: linear-gradient(135deg, #fce7f3, #ede9fe); border: 1px solid #f9a8d4; border-radius: 20px; padding: 22px; margin-bottom: 24px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.hi { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.hdate { font-size: 14px; font-weight: 500; color: #1e1b4b; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.hsub { font-size: 12px; color: #9ca3af; margin-top: 2px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.hpct { font-size: 20px; font-weight: 700; }</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div id="home" class="screen on"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="date-lbl" id="h-date"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Better Than&lt;br&gt;Yesterday&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;p class="sub"&gt;One goal. Four areas.&lt;br&gt;Every single day.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="h-streak"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="h-mini"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="sp"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="btn" id="h-btn"&gt;Get today's goals&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="ghost" id="h-hist" style="display:none" onclick="go('history')"&gt;View past days&lt;/button&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div id="goals" class="screen"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="back" onclick="go('home')"&gt;&amp;#8592; Back&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="date-lbl" id="g-date"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1 style="margin-bottom:20px"&gt;Today's goals&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="g-list"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="pbar-wrap"&gt;&lt;div class="pbar" id="pbar"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="plbl" id="plbl"&gt;0 of 4 completed&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="sp"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="btn" onclick="goEvening()"&gt;End my day&lt;/button&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div id="evening" class="screen"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="back" onclick="go('goals')"&gt;&amp;#8592; Back&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1 style="margin-bottom:6px"&gt;End of day&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;p class="sub" id="ev-sub"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="ev-loading" class="load-card" style="display:none"&gt;&lt;span class="shimmer"&gt;Writing your reflection...&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="ev-ref" class="card" style="display:none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="sec-lbl" style="color:#6b7280"&gt;Today's reflection&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="ev-ref-txt" style="font-size:15px;line-height:1.75;color:#1e1b4b"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="ev-won" class="wcard" style="display:none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="sec-lbl" style="color:#4c1d95"&gt;Something to sit with tonight&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="ev-won-txt" style="font-size:15px;line-height:1.75;color:#4c1d95;font-style:italic"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="ev-tom" class="tcard" style="display:none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="sec-lbl" style="color:#831843"&gt;Tomorrow&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="ev-tom-txt" style="font-size:15px;line-height:1.65;color:#831843"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="sp"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="btn" onclick="go('home')"&gt;Sleep well. See you tomorrow.&lt;/button&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div id="history" class="screen"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="back" onclick="go('home')"&gt;&amp;#8592; Back&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1 style="margin-bottom:20px"&gt;Your journey&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="hist-list"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">var AREAS = ["fitness","money","career","mindset"];</p>
+<p class="p1">var LABELS = {fitness:"Fitness",money:"Money",career:"Career",mindset:"Mindset"};</p>
+<p class="p1">var ICONS<span class="Apple-converted-space">  </span>= {fitness:"o",money:"$",career:"^",mindset:"*"};</p>
+<p class="p1">var COL = {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>fitness:{bg:"#d1fae5",text:"#065f46",bd:"#6ee7b7"},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>money:<span class="Apple-converted-space">  </span>{bg:"#dbeafe",text:"#1e3a8a",bd:"#93c5fd"},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>career: {bg:"#ede9fe",text:"#4c1d95",bd:"#c4b5fd"},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>mindset:{bg:"#fce7f3",text:"#831843",bd:"#f9a8d4"}</p>
+<p class="p1">};</p>
+<p class="p2"><br></p>
+<p class="p1">var goals = [];</p>
+<p class="p1">var completed = {};</p>
+<p class="p1">var evData = {reflection:"",wonder:"",tomorrow:""};</p>
+<p class="p1">var allData = {};</p>
+<p class="p1">var generating = false;</p>
+<p class="p1">var API_KEY = “REPLACE_ME”;</p>
+<p class="p2"><br></p>
+<p class="p1">function pad(n) { return n &lt; 10 ? "0"+n : ""+n; }</p>
+<p class="p1">function todayKey() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var d = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());</p>
+<p class="p1">}</p>
+<p class="p1">function fmtDate(k) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>return new Date(k+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"});</p>
+<p class="p1">}</p>
+<p class="p1">function countDoneFor(c) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var n = 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for (var i = 0; i &lt; AREAS.length; i++) { if (c[AREAS[i]]) n++; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>return n;</p>
+<p class="p1">}</p>
+<p class="p1">function loadStorage() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>try { allData = JSON.parse(localStorage.getItem("bty_gh") || "{}"); } catch(e) { allData = {}; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var t = todayKey();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (allData[t]) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>goals = allData[t].goals || [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>completed = allData[t].completed || {};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>evData = allData[t].ev || {reflection:"",wonder:"",tomorrow:""};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p1">function saveStorage() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>allData[todayKey()] = {goals:goals, completed:completed, ev:evData};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>localStorage.setItem("bty_gh", JSON.stringify(allData));</p>
+<p class="p1">}</p>
+<p class="p1">function go(id) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var all = document.querySelectorAll(".screen");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for (var i = 0; i &lt; all.length; i++) all[i].classList.remove("on");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById(id).classList.add("on");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (id === "home") renderHome();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (id === "history") renderHistory();</p>
+<p class="p1">}</p>
+<p class="p1">function getStreak() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var s = 0; var d = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for (var i = 0; i &lt; 60; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var k = d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var e = allData[k];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (e &amp;&amp; countDoneFor(e.completed||{}) &gt; 0) { s++; d.setDate(d.getDate()-1); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>else break;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>return s;</p>
+<p class="p1">}</p>
+<p class="p1">function renderHome() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("h-date").textContent = fmtDate(todayKey());</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var s = getStreak();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var sw = document.getElementById("h-streak");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (s &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sw.innerHTML = '&lt;div class="card" style="text-align:center;margin-bottom:20px"&gt;&lt;div class="streak-n"&gt;'+s+'&lt;/div&gt;&lt;div class="streak-l"&gt;day streak &amp;mdash; keep going&lt;/div&gt;&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} else { sw.innerHTML = ""; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var mg = document.getElementById("h-mini");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (goals.length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var html = '&lt;div class="mini-grid"&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (var i = 0; i &lt; AREAS.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var a = AREAS[i]; var done = completed[a]; var col = COL[a];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var bg = done ? "background:"+col.bg+";border-color:"+col.bd+";" : "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var tc = done ? "color:"+col.text+";" : "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>html += '&lt;div class="mini" style="'+bg+'"&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>html += '&lt;div class="mini-lbl" style="'+tc+'"&gt;'+ICONS[a]+" "+LABELS[a]+'&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>html += '&lt;div class="mini-val" style="'+tc+'"&gt;'+(done?"Done":"Pending")+'&lt;/div&gt;&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>html += '&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>mg.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} else { mg.innerHTML = ""; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("h-hist").style.display = Object.keys(allData).length &gt; 1 ? "block" : "none";</p>
+<p class="p1">}</p>
+<p class="p1">function renderGoals() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var list = document.getElementById("g-list");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var html = "";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for (var i = 0; i &lt; AREAS.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var area = AREAS[i]; var col = COL[area]; var done = completed[area];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var g = null;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (var j = 0; j &lt; goals.length; j++) { if (goals[j].area === area) { g = goals[j]; break; } }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!g) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>html += '&lt;div class="load-card"&gt;&lt;span class="shimmer"&gt;'+(generating?"Generating "+LABELS[area].toLowerCase()+"...":"&amp;mdash;")+'&lt;/span&gt;&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var bg = done ? "background:"+col.bg+";border-color:"+col.bd+";" : "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var tc = done ? "color:"+col.text+";" : "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var cb = done ? "background:"+col.text+";border-color:"+col.text+";" : "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>html += '&lt;div class="gcard" style="'+bg+'" onclick="toggle(\''+area+'\')"&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>html += '&lt;div class="hdr"&gt;&lt;span class="tag" style="'+tc+'"&gt;'+LABELS[area]+'&lt;/span&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>html += '&lt;div class="circle" style="'+cb+'"&gt;'+(done?"&amp;#10003;":"")+'&lt;/div&gt;&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>html += '&lt;div class="gtxt" style="'+tc+'"&gt;'+g.text+'&lt;/div&gt;&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>list.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var done2 = countDoneFor(completed);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var total = goals.length || 4;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var pct = Math.round((done2/total)*100);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("pbar").style.width = pct+"%";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("plbl").textContent = done2+" of "+total+" completed";</p>
+<p class="p1">}</p>
+<p class="p1">function toggle(area) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>completed[area] = !completed[area];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>saveStorage();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderGoals();</p>
+<p class="p1">}</p>
+<p class="p1">function callAI(system, user, maxTokens, cb) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var xhr = new XMLHttpRequest();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>xhr.open("POST","https://api.anthropic.com/v1/messages",true);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>xhr.setRequestHeader("Content-Type","application/json");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>xhr.setRequestHeader("x-api-key", API_KEY);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>xhr.setRequestHeader("anthropic-version","2023-06-01");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>xhr.setRequestHeader("anthropic-dangerous-direct-browser-access","true");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>xhr.onreadystatechange = function() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (xhr.readyState === 4) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var d = JSON.parse(xhr.responseText);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cb(null, d.content &amp;&amp; d.content[0] ? d.content[0].text : "");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} catch(e) { cb(e,""); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>xhr.onerror = function() { cb(new Error("Network error"),""); };</p>
+<p class="p1"><span class="Apple-converted-space">  </span>xhr.send(JSON.stringify({</p>
+<p class="p1"><span class="Apple-converted-space">    </span>model:"claude-haiku-4-5-20251001",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>max_tokens: maxTokens,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>system: system,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>messages:[{role:"user",content:user}]</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}));</p>
+<p class="p1">}</p>
+<p class="p1">function generate() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (generating) return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>generating = true;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>goals = []; completed = {}; evData = {reflection:"",wonder:"",tomorrow:""};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>go("goals");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderGoals();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var usedGoals = [];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var keys = Object.keys(allData).sort().reverse().slice(0,14);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for (var i = 0; i &lt; keys.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var gs = allData[keys[i]].goals || [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (var j = 0; j &lt; gs.length; j++) usedGoals.push(gs[j].text);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var avoid = usedGoals.length &gt; 0 ? "NEVER repeat these past goals: "+usedGoals.join(" | ") : "";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var seed = ""+Date.now()+"_"+Math.floor(Math.random()*99999);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var prompts = {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>fitness:"Give ONE creative fitness activity for a 22-year-old beginner today. Max 2 sentences. Think beyond basics.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>money:"Give ONE money action a 22-year-old in debt can do today. Max 2 sentences. Be creative and specific.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>career:"Give ONE career or job action for a 22-year-old with no job. Max 2 sentences. Be concrete.",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>mindset:"Give ONE mindset practice for a 22-year-old who feels behind. Max 2 sentences. Be gentle and specific."</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var sys = "You are a direct creative life coach. Reply with ONE goal sentence only. No intro. Be specific and varied. Seed:"+seed+". "+avoid;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var idx = 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function next() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (idx &gt;= AREAS.length) { generating = false; saveStorage(); return; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var area = AREAS[idx];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>callAI(sys, prompts[area], 120, function(err, txt) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>goals.push({area:area, text:txt||"Take one small step forward today."});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderGoals();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>idx++;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>next();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>next();</p>
+<p class="p1">}</p>
+<p class="p1">function goEvening() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>go("evening");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var done = countDoneFor(completed);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("ev-sub").textContent = "You completed "+done+" of "+goals.length+" goals today";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (evData.reflection) { showEv(); return; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("ev-loading").style.display = "flex";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var summary = "";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for (var i = 0; i &lt; goals.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>summary += LABELS[goals[i].area]+": "+goals[i].text+" -- "+(completed[goals[i].area]?"DONE":"skipped")+"\n";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var sys = "You are a wise warm mentor for a 22-year-old building their life. Reply ONLY with raw JSON no markdown. Format: {\"reflection\":\"3 honest warm sentences\",\"wonder\":\"2 poetic philosophical sentences about growth giving deep hope\",\"tomorrow\":\"2 sentences making them excited to wake up\"}";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>callAI(sys, "Today:\n"+summary, 400, function(err, txt) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var clean = txt.replace(/```json/g,"").replace(/```/g,"").trim();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var p = JSON.parse(clean);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>evData = {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>reflection: p.reflection || "You showed up. That is everything.",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>wonder: <span class="Apple-converted-space">    </span>p.wonder <span class="Apple-converted-space">    </span>|| "Every version of you that exists was built by a version that kept going.",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>tomorrow: <span class="Apple-converted-space">  </span>p.tomorrow <span class="Apple-converted-space">  </span>|| "Tomorrow is a fresh page. You get to write it."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} catch(e) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>evData = {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>reflection:"You showed up today. That matters more than you know.",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>wonder:"Every great life is simply a series of ordinary days where someone chose to keep going.",</p>
+<p class="p1"><span class="Apple-converted-space">        </span>tomorrow:"Tomorrow you get another shot. Show up again."</p>
+<p class="p1"><span class="Apple-converted-space">      </span>};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>saveStorage();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>showEv();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1">}</p>
+<p class="p1">function showEv() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("ev-loading").style.display = "none";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("ev-ref-txt").textContent = evData.reflection;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("ev-ref").style.display = "block";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("ev-won-txt").textContent = evData.wonder;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("ev-won").style.display = "block";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("ev-tom-txt").textContent = evData.tomorrow;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("ev-tom").style.display = "block";</p>
+<p class="p1">}</p>
+<p class="p1">function renderHistory() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var days = Object.keys(allData).sort().reverse().slice(0,20);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var html = "";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for (var i = 0; i &lt; days.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var d = days[i]; var e = allData[d];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var dn = countDoneFor(e.completed||{});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var total = (e.goals||[]).length || 1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var pct = Math.round((dn/total)*100);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var color = pct===100?"#065f46":pct&gt;=50?"#4c1d95":"#9ca3af";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>html += '&lt;div class="hi"&gt;&lt;div&gt;&lt;div class="hdate"&gt;'+fmtDate(d)+'&lt;/div&gt;&lt;div class="hsub"&gt;'+dn+"/"+total+" goals completed&lt;/div&gt;&lt;/div&gt;";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>html += '&lt;div class="hpct" style="color:'+color+'"&gt;'+pct+'%&lt;/div&gt;&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("hist-list").innerHTML = html || '&lt;p style="color:#9ca3af;text-align:center"&gt;No history yet&lt;/p&gt;';</p>
+<p class="p1">}</p>
+<p class="p1">document.getElementById("h-btn").onclick = generate;</p>
+<p class="p1">document.getElementById("g-date").textContent = fmtDate(todayKey());</p>
+<p class="p1">loadStorage();</p>
+<p class="p1">renderHome();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
