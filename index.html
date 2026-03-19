@@ -393,23 +393,30 @@ function toggle(area){
 
 // ── API Call ──────────────────────────────────────────────────────────────────
 function callAI(system,user,maxTokens,cb){
-  var xhr=new XMLHttpRequest();
-  xhr.open("POST","https://api.anthropic.com/v1/messages",true);
-  xhr.setRequestHeader("Content-Type","application/json");
-  xhr.setRequestHeader("x-api-key",API_KEY);
-  xhr.setRequestHeader("anthropic-version","2023-06-01");
-  xhr.setRequestHeader("anthropic-dangerous-direct-browser-access","true");
-  xhr.timeout=25000;
-  xhr.onreadystatechange=function(){
-    if(xhr.readyState!==4)return;
-    if(xhr.status===401||xhr.status===403){cb(new Error("bad_key"),"");return}
-    if(xhr.status>=400){cb(new Error("err_"+xhr.status),"");return}
-    try{var d=JSON.parse(xhr.responseText);cb(null,d.content&&d.content[0]?d.content[0].text:"")}
-    catch(e){cb(e,"")}
-  };
-  xhr.ontimeout=function(){cb(new Error("timeout"),"")};
-  xhr.onerror=function(){cb(new Error("network"),"")};
-  xhr.send(JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:maxTokens,system:system,messages:[{role:"user",content:user}]}));
+  var controller=new AbortController();
+  var timer=setTimeout(function(){controller.abort();},25000);
+  fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    signal:controller.signal,
+    headers:{
+      "Content-Type":"application/json",
+      "x-api-key":API_KEY,
+      "anthropic-version":"2023-06-01",
+      "anthropic-dangerous-direct-browser-access":"true"
+    },
+    body:JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:maxTokens,system:system,messages:[{role:"user",content:user}]})
+  }).then(function(res){
+    clearTimeout(timer);
+    if(res.status===401||res.status===403){cb(new Error("bad_key"),"");return Promise.resolve(null);}
+    if(!res.ok){cb(new Error("err_"+res.status),"");return Promise.resolve(null);}
+    return res.json();
+  }).then(function(d){
+    if(!d)return;
+    cb(null,d.content&&d.content[0]?d.content[0].text:"");
+  }).catch(function(e){
+    clearTimeout(timer);
+    cb(e instanceof Error?e:new Error("network"),"");
+  });
 }
 
 // ── Generate ──────────────────────────────────────────────────────────────────
@@ -436,14 +443,15 @@ function generate(){
   var seed=Date.now()+"_"+Math.floor(Math.random()*99999);
   var sys="You are a direct, creative life coach. Reply with ONE specific actionable sentence only. No intro, no quotes.Seed:"+seed+"."+avoid;
 
-  var idx=0;
-  function next(){
-    if(idx>=AREAS.length){generating=false;save();renderGoals();renderHome();return}
-    var area=AREAS[idx];
+  // Fire all 4 requests in parallel
+  var done=0;
+  var badKey=false;
+  AREAS.forEach(function(area){
     callAI(sys,PROMPTS[area],150,function(err,txt){
+      if(badKey)return;
       if(err){
         if(err.message==="bad_key"){
-          generating=false;
+          badKey=true;generating=false;
           API_KEY="";try{localStorage.removeItem("bty_api")}catch(e){}
           go("home");renderHome();
           showErr("h-err","Invalid API key — please check it and try again.");return;
@@ -452,11 +460,11 @@ function generate(){
       }else{
         goals[area]=txt||"Take one meaningful step in "+LABELS[area].toLowerCase()+" today.";
       }
+      done++;
       save();renderGoals();
-      idx++;next();
+      if(done===AREAS.length){generating=false;renderGoals();renderHome();}
     });
-  }
-  next();
+  });
 }
 
 // ── Evening ───────────────────────────────────────────────────────────────────
