@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0c0c0f">
+<title>Better Than Yesterday</title>
+<style>
+:root {
+  --bg: #0c0c0f;
+  --surf: #141417;
+  --surf2: #1c1c21;
+  --bd: rgba(255,255,255,0.07);
+  --bd2: rgba(255,255,255,0.12);
+  --text: #eeebe5;
+  --muted: #6b6875;
+  --muted2: #9490a0;
+  --fitness: #a8f0c0;
+  --fitness-bg: rgba(168,240,192,0.08);
+  --fitness-bd: rgba(168,240,192,0.2);
+  --money: #a0d4f5;
+  --money-bg: rgba(160,212,245,0.08);
+  --money-bd: rgba(160,212,245,0.2);
+  --career: #f5d08a;
+  --career-bg: rgba(245,208,138,0.08);
+  --career-bd: rgba(245,208,138,0.2);
+  --mindset: #d4a8f0;
+  --mindset-bg: rgba(212,168,240,0.08);
+  --mindset-bd: rgba(212,168,240,0.2);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:Georgia,'Times New Roman',serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;top:-15%;right:-10%;
+  width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,168,240,.07) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:'';position:fixed;bottom:-10%;left:-10%;
+  width:350px;height:350px;border-radius:50%;
+  background:radial-gradient(circle,rgba(160,212,245,.06) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.screen{
+  display:none;flex-direction:column;
+  max-width:420px;margin:0 auto;
+  padding:52px 22px 44px;
+  min-height:100vh;position:relative;z-index:1;
+}
+.screen.on{display:flex}
+button{font-family:inherit;cursor:pointer}
+.back{
+  background:none;border:none;color:var(--muted);
+  font-family:system-ui,sans-serif;font-size:13px;font-weight:500;
+  letter-spacing:.04em;padding:0 0 28px;text-align:left;
+}
+.eyebrow{
+  font-family:system-ui,sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+}
+h1{font-size:34px;font-weight:400;line-height:1.18;color:var(--text);margin-bottom:10px}
+h1 em{font-style:italic;color:var(--muted2)}
+.sub{
+  font-family:system-ui,sans-serif;font-size:14px;font-weight:300;
+  color:var(--muted2);line-height:1.75;margin-bottom:32px;
+}
+.sp{flex:1;min-height:20px}
+.btn{
+  width:100%;padding:15px 20px;font-size:14px;font-weight:600;
+  font-family:system-ui,sans-serif;letter-spacing:.02em;
+  background:var(--text);color:var(--bg);border:none;border-radius:13px;
+  margin-bottom:10px;transition:opacity .2s;
+}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.ghost{
+  width:100%;padding:15px 20px;font-size:14px;font-weight:500;
+  font-family:system-ui,sans-serif;background:transparent;
+  color:var(--muted2);border:1px solid var(--bd2);border-radius:13px;margin-bottom:10px;
+}
+
+/* API setup */
+.api-box{
+  background:var(--surf);border:1px solid var(--bd2);
+  border-radius:16px;padding:20px;margin-bottom:20px;
+}
+.api-box .lbl{
+  font-family:system-ui,sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+}
+.api-box input{
+  width:100%;background:var(--bg);border:1px solid var(--bd2);
+  border-radius:9px;padding:12px 14px;font-family:system-ui,sans-serif;
+  font-size:13px;color:var(--text);outline:none;font-weight:300;
+}
+.api-box input::placeholder{color:var(--muted)}
+.api-box .hint{
+  font-family:system-ui,sans-serif;font-size:11px;
+  color:var(--muted);margin-top:8px;font-weight:300;line-height:1.6;
+}
+
+/* Streak */
+.streak-card{
+  background:var(--surf);border:1px solid var(--bd);border-radius:17px;
+  padding:18px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;
+}
+.streak-n{font-size:32px;font-weight:400;line-height:1}
+.streak-l{font-family:system-ui,sans-serif;font-size:12px;color:var(--muted);margin-top:3px;font-weight:300}
+
+/* Mini grid */
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px}
+.mini{border-radius:12px;padding:13px 14px;border:1px solid var(--bd);background:var(--surf);transition:all .25s}
+.mini-lbl{font-family:system-ui,sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.mini-val{font-family:system-ui,sans-serif;font-size:12px;color:var(--muted);font-weight:300}
+.mini.f{background:var(--fitness-bg);border-color:var(--fitness-bd)}.mini.f .mini-lbl{color:var(--fitness)}.mini.f .mini-val{color:var(--muted2)}
+.mini.m{background:var(--money-bg);border-color:var(--money-bd)}.mini.m .mini-lbl{color:var(--money)}.mini.m .mini-val{color:var(--muted2)}
+.mini.c{background:var(--career-bg);border-color:var(--career-bd)}.mini.c .mini-lbl{color:var(--career)}.mini.c .mini-val{color:var(--muted2)}
+.mini.n{background:var(--mindset-bg);border-color:var(--mindset-bd)}.mini.n .mini-lbl{color:var(--mindset)}.mini.n .mini-val{color:var(--muted2)}
+
+/* Goal cards */
+.gcard{
+  border-radius:15px;padding:18px 20px;border:1px solid var(--bd);
+  background:var(--surf);margin-bottom:10px;cursor:pointer;
+  transition:all .25s;user-select:none;
+}
+.gcard .hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.tag{font-family:system-ui,sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ring{
+  width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bd2);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-family:system-ui,sans-serif;font-size:11px;font-weight:700;color:transparent;transition:all .2s;
+}
+.gtxt{font-family:system-ui,sans-serif;font-size:14px;font-weight:300;line-height:1.75;color:var(--muted2)}
+
+.gcard.f{background:var(--fitness-bg);border-color:var(--fitness-bd)}.gcard.f .tag{color:var(--fitness)}.gcard.f .gtxt{color:rgba(168,240,192,.75)}.gcard.f .ring{background:var(--fitness);border-color:var(--fitness);color:var(--bg)}
+.gcard.m{background:var(--money-bg);border-color:var(--money-bd)}.gcard.m .tag{color:var(--money)}.gcard.m .gtxt{color:rgba(160,212,245,.75)}.gcard.m .ring{background:var(--money);border-color:var(--money);color:var(--bg)}
+.gcard.c{background:var(--career-bg);border-color:var(--career-bd)}.gcard.c .tag{color:var(--career)}.gcard.c .gtxt{color:rgba(245,208,138,.75)}.gcard.c .ring{background:var(--career);border-color:var(--career);color:var(--bg)}
+.gcard.n{background:var(--mindset-bg);border-color:var(--mindset-bd)}.gcard.n .tag{color:var(--mindset)}.gcard.n .gtxt{color:rgba(212,168,240,.75)}.gcard.n .ring{background:var(--mindset);border-color:var(--mindset);color:var(--bg)}
+
+/* Progress */
+.pbar-wrap{background:var(--surf2);border-radius:99px;height:3px;margin-bottom:8px;overflow:hidden}
+.pbar{height:3px;border-radius:99px;background:var(--text);width:0%;transition:width .5s cubic-bezier(.34,1.56,.64,1)}
+.plbl{font-family:system-ui,sans-serif;font-size:12px;color:var(--muted);font-weight:300;margin-bottom:22px}
+
+/* Loading */
+.load-card{
+  background:var(--surf);border:1px solid var(--bd);border-radius:15px;
+  padding:20px;margin-bottom:10px;min-height:84px;
+  display:flex;align-items:center;justify-content:center;
+}
+.shimmer{font-family:system-ui,sans-serif;color:var(--muted);font-size:13px;font-weight:300;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.2}50%{opacity:.8}}
+
+/* Evening */
+.ev-card{background:var(--surf);border:1px solid var(--bd);border-radius:17px;padding:20px 22px;margin-bottom:12px}
+.ev-card.wonder{background:var(--mindset-bg);border-color:var(--mindset-bd)}
+.ev-card.tomorrow{background:var(--career-bg);border-color:var(--career-bd)}
+.ev-lbl{font-family:system-ui,sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.ev-card.wonder .ev-lbl{color:var(--mindset)}
+.ev-card.tomorrow .ev-lbl{color:var(--career)}
+.ev-txt{font-size:16px;font-style:italic;line-height:1.8;color:var(--text);font-weight:400}
+.ev-card.wonder .ev-txt{color:rgba(212,168,240,.85)}
+.ev-card.tomorrow .ev-txt{color:rgba(245,208,138,.85)}
+
+/* Error */
+.err{
+  background:rgba(240,100,100,.08);border:1px solid rgba(240,100,100,.2);
+  border-radius:12px;padding:12px 16px;font-family:system-ui,sans-serif;
+  font-size:13px;color:rgba(240,160,160,.9);margin-bottom:14px;
+  font-weight:300;line-height:1.6;display:none;
+}
+
+/* History */
+.hi{
+  background:var(--surf);border:1px solid var(--bd);border-radius:13px;
+  padding:15px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;
+}
+.hdate{font-family:system-ui,sans-serif;font-size:14px;font-weight:400;color:var(--text)}
+.hsub{font-family:system-ui,sans-serif;font-size:12px;color:var(--muted);margin-top:3px;font-weight:300}
+.hpct{font-size:22px;font-weight:400}
+
+/* "Add to Home Screen" banner */
+.a2hs{
+  background:var(--surf);border:1px solid var(--bd2);border-radius:14px;
+  padding:14px 16px;margin-bottom:16px;
+  font-family:system-ui,sans-serif;font-size:12px;color:var(--muted2);
+  font-weight:300;line-height:1.6;display:none;
+}
+.a2hs strong{color:var(--text);font-weight:500}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div id="home" class="screen on">
+  <div class="eyebrow" id="h-date"></div>
+  <h1>Better Than<br><em>Yesterday</em></h1>
+  <p class="sub">One intention per area.<br>Show up every day.</p>
+
+  <div id="h-api" class="api-box" style="display:none">
+    <div class="lbl">Anthropic API Key</div>
+    <input type="password" id="api-input" placeholder="sk-ant-..." autocomplete="off" oninput="clearErr('h-err')">
+    <div class="hint">Stored only in this browser. Get a key at <strong>console.anthropic.com</strong></div>
+  </div>
+
+  <div id="a2hs" class="a2hs">
+    📱 <strong>Tip:</strong> Tap the share button then <strong>"Add to Home Screen"</strong> so it opens like an app on your phone.
+  </div>
+
+  <div id="h-streak"></div>
+  <div id="h-mini"></div>
+  <div class="sp"></div>
+  <div id="h-err" class="err"></div>
+  <button class="btn" id="h-btn">Get today's goals</button>
+  <button class="ghost" id="h-hist" style="display:none" onclick="go('history')">View past days</button>
+</div>
+
+<!-- GOALS -->
+<div id="goals" class="screen">
+  <button class="back" onclick="go('home')">← Back</button>
+  <div class="eyebrow" id="g-date"></div>
+  <h1 style="margin-bottom:22px">Today's<br><em>four</em></h1>
+  <div id="g-list"></div>
+  <div class="pbar-wrap"><div class="pbar" id="pbar"></div></div>
+  <div class="plbl" id="plbl">0 of 4 completed</div>
+  <div class="sp"></div>
+  <button class="btn" id="end-btn" onclick="goEvening()">End my day</button>
+</div>
+
+<!-- EVENING -->
+<div id="evening" class="screen">
+  <button class="back" onclick="go('goals')">← Back</button>
+  <div class="eyebrow">End of day</div>
+  <h1 style="margin-bottom:6px">You <em>showed up.</em></h1>
+  <p class="sub" id="ev-sub" style="margin-bottom:24px"></p>
+  <div id="ev-loading" class="load-card" style="display:none"><span class="shimmer">Writing your reflection…</span></div>
+  <div id="ev-err" class="err"></div>
+  <div id="ev-ref" class="ev-card" style="display:none"><div class="ev-lbl">Reflection</div><div class="ev-txt" id="ev-ref-txt"></div></div>
+  <div id="ev-won" class="ev-card wonder" style="display:none"><div class="ev-lbl">Something to sit with tonight</div><div class="ev-txt" id="ev-won-txt"></div></div>
+  <div id="ev-tom" class="ev-card tomorrow" style="display:none"><div class="ev-lbl">Tomorrow</div><div class="ev-txt" id="ev-tom-txt"></div></div>
+  <div class="sp"></div>
+  <button class="btn" onclick="go('home')">Sleep well. See you tomorrow.</button>
+</div>
+
+<!-- HISTORY -->
+<div id="history" class="screen">
+  <button class="back" onclick="go('home')">← Back</button>
+  <h1 style="margin-bottom:22px">Your<br><em>journey</em></h1>
+  <div id="hist-list"></div>
+</div>
+
+<script>
+var AREAS  = ["fitness","money","career","mindset"];
+var LABELS = {fitness:"Fitness",money:"Money",career:"Career",mindset:"Mindset"};
+var CLS    = {fitness:"f",money:"m",career:"c",mindset:"n"};
+var PROMPTS = {
+  fitness:"Give ONE creative, beginner-friendly fitness or movement activity for today. Think beyond the gym. Max 2 sentences.",
+  money:"Give ONE specific, actionable money habit or awareness task for today. Be practical. Max 2 sentences.",
+  career:"Give ONE concrete career-growth action for today — learning, networking, or skill-building. Max 2 sentences.",
+  mindset:"Give ONE gentle, grounding mindset practice — journaling, gratitude, or reflection. Be warm and specific. Max 2 sentences."
+};
+
+var goals={}, completed={}, evData={reflection:"",wonder:"",tomorrow:""};
+var allData={}, generating=false, API_KEY="";
+
+function pad(n){return n<10?"0"+n:""+n}
+function todayKey(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+function fmtDate(k){return new Date(k+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})}
+function countDone(c){return AREAS.filter(function(a){return c&&c[a]}).length}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+
+// ── Storage ──────────────────────────────────────────────────────────────────
+function load(){
+  try{allData=JSON.parse(localStorage.getItem("bty_v3")||"{}")}catch(e){allData={}}
+  var t=todayKey();
+  if(allData[t]){
+    goals=allData[t].goals||{};
+    completed=allData[t].completed||{};
+    evData=allData[t].ev||{reflection:"",wonder:"",tomorrow:""};
+  }else{goals={};completed={};evData={reflection:"",wonder:"",tomorrow:""}}
+  API_KEY=localStorage.getItem("bty_api")||"";
+}
+function save(){
+  allData[todayKey()]={goals:goals,completed:completed,ev:evData};
+  try{localStorage.setItem("bty_v3",JSON.stringify(allData))}catch(e){}
+}
+function saveKey(k){API_KEY=k.trim();try{localStorage.setItem("bty_api",API_KEY)}catch(e){}}
+
+// ── Navigation ────────────────────────────────────────────────────────────────
+function go(id){
+  document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("on")});
+  document.getElementById(id).classList.add("on");
+  window.scrollTo(0,0);
+  if(id==="home")renderHome();
+  if(id==="goals")renderGoals();
+  if(id==="history")renderHistory();
+}
+
+// ── Streak ────────────────────────────────────────────────────────────────────
+function getStreak(){
+  var s=0,d=new Date();
+  for(var i=0;i<90;i++){
+    var k=d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+    if(allData[k]&&countDone(allData[k].completed)>0){s++;d.setDate(d.getDate()-1)}else break;
+  }
+  return s;
+}
+
+// ── Render Home ───────────────────────────────────────────────────────────────
+function renderHome(){
+  document.getElementById("h-date").textContent=fmtDate(todayKey());
+
+  // API key box
+  document.getElementById("h-api").style.display=API_KEY?"none":"block";
+
+  // A2HS tip — show once on mobile
+  var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  var isMobile=/mobi/i.test(navigator.userAgent);
+  var shownA2hs=localStorage.getItem("bty_a2hs");
+  if((isIOS||isMobile)&&!shownA2hs&&!window.navigator.standalone){
+    document.getElementById("a2hs").style.display="block";
+    localStorage.setItem("bty_a2hs","1");
+  }
+
+  // Streak
+  var s=getStreak();
+  var sw=document.getElementById("h-streak");
+  sw.innerHTML=s>0?'<div class="streak-card"><div style="font-size:30px">'+(s>=7?"🔥🔥":"🔥")+'</div><div><div class="streak-n">'+s+' days</div><div class="streak-l">keep the streak alive</div></div></div>':"";
+
+  // Mini tiles
+  var goalList=Object.values(goals);
+  var mg=document.getElementById("h-mini");
+  if(goalList.length>0){
+    var html='<div class="mini-grid">';
+    AREAS.forEach(function(a){
+      var done=completed[a];
+      html+='<div class="mini'+(done?" "+CLS[a]:"")+'"><div class="mini-lbl">'+LABELS[a]+'</div><div class="mini-val">'+(done?"Done ✓":"Pending")+'</div></div>';
+    });
+    html+='</div>';
+    mg.innerHTML=html;
+  }else{mg.innerHTML=""}
+
+  // Button label
+  var btn=document.getElementById("h-btn");
+  var n=Object.keys(goals).length;
+  btn.textContent=n===AREAS.length?"Continue today's goals":generating?"Generating…":"Get today's goals";
+  btn.disabled=generating;
+
+  // History
+  var pastKeys=Object.keys(allData).filter(function(k){return k!==todayKey()});
+  document.getElementById("h-hist").style.display=pastKeys.length>=1?"block":"none";
+  clearErr("h-err");
+}
+
+// ── Render Goals ──────────────────────────────────────────────────────────────
+function renderGoals(){
+  document.getElementById("g-date").textContent=fmtDate(todayKey());
+  var html="";
+  AREAS.forEach(function(a){
+    var g=goals[a];
+    if(!g){
+      html+='<div class="load-card"><span class="shimmer">'+(generating?"Generating "+LABELS[a].toLowerCase()+"…":"—")+'</span></div>';
+    }else{
+      var done=completed[a];
+      html+='<div class="gcard'+(done?" "+CLS[a]:"")+('" onclick="toggle(\''+a+'\')">')
+        +'<div class="hdr"><span class="tag">'+LABELS[a]+'</span>'
+        +'<div class="ring">'+(done?"✓":"")+'</div></div>'
+        +'<div class="gtxt">'+esc(g)+'</div></div>';
+    }
+  });
+  document.getElementById("g-list").innerHTML=html;
+  var done=countDone(completed);
+  var pct=Math.round(done/AREAS.length*100);
+  document.getElementById("pbar").style.width=pct+"%";
+  document.getElementById("plbl").textContent=done+" of "+AREAS.length+" completed";
+  document.getElementById("end-btn").disabled=generating;
+}
+
+function toggle(area){
+  completed[area]=!completed[area];
+  save();
+  renderGoals();
+}
+
+// ── API Call ──────────────────────────────────────────────────────────────────
+function callAI(system,user,maxTokens,cb){
+  var xhr=new XMLHttpRequest();
+  xhr.open("POST","https://api.anthropic.com/v1/messages",true);
+  xhr.setRequestHeader("Content-Type","application/json");
+  xhr.setRequestHeader("x-api-key",API_KEY);
+  xhr.setRequestHeader("anthropic-version","2023-06-01");
+  xhr.setRequestHeader("anthropic-dangerous-direct-browser-access","true");
+  xhr.timeout=25000;
+  xhr.onreadystatechange=function(){
+    if(xhr.readyState!==4)return;
+    if(xhr.status===401||xhr.status===403){cb(new Error("bad_key"),"");return}
+    if(xhr.status>=400){cb(new Error("err_"+xhr.status),"");return}
+    try{var d=JSON.parse(xhr.responseText);cb(null,d.content&&d.content[0]?d.content[0].text:"")}
+    catch(e){cb(e,"")}
+  };
+  xhr.ontimeout=function(){cb(new Error("timeout"),"")};
+  xhr.onerror=function(){cb(new Error("network"),"")};
+  xhr.send(JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:maxTokens,system:system,messages:[{role:"user",content:user}]}));
+}
+
+// ── Generate ──────────────────────────────────────────────────────────────────
+function generate(){
+  // Already done today — just navigate
+  if(Object.keys(goals).length===AREAS.length&&!generating){go("goals");return}
+
+  // Grab key from input if needed
+  var inp=document.getElementById("api-input");
+  if(!API_KEY&&inp.value.trim())saveKey(inp.value);
+  if(!API_KEY){showErr("h-err","Enter your Anthropic API key above to get started.");return}
+  if(generating)return;
+
+  generating=true;clearErr("h-err");
+  goals={};completed={};evData={reflection:"",wonder:"",tomorrow:""};
+  save();go("goals");
+
+  // Build variety context
+  var past=[];
+  Object.keys(allData).sort().reverse().slice(0,14).forEach(function(k){
+    Object.values(allData[k].goals||{}).forEach(function(t){past.push(t)});
+  });
+  var avoid=past.length?" NEVER repeat or closely echo: "+past.join(" | ")+".":" ";
+  var seed=Date.now()+"_"+Math.floor(Math.random()*99999);
+  var sys="You are a direct, creative life coach. Reply with ONE specific actionable sentence only. No intro, no quotes.Seed:"+seed+"."+avoid;
+
+  var idx=0;
+  function next(){
+    if(idx>=AREAS.length){generating=false;save();renderGoals();renderHome();return}
+    var area=AREAS[idx];
+    callAI(sys,PROMPTS[area],150,function(err,txt){
+      if(err){
+        if(err.message==="bad_key"){
+          generating=false;
+          API_KEY="";try{localStorage.removeItem("bty_api")}catch(e){}
+          go("home");renderHome();
+          showErr("h-err","Invalid API key — please check it and try again.");return;
+        }
+        goals[area]="Take one meaningful step in "+LABELS[area].toLowerCase()+" today.";
+      }else{
+        goals[area]=txt||"Take one meaningful step in "+LABELS[area].toLowerCase()+" today.";
+      }
+      save();renderGoals();
+      idx++;next();
+    });
+  }
+  next();
+}
+
+// ── Evening ───────────────────────────────────────────────────────────────────
+function goEvening(){
+  if(generating)return;
+  go("evening");
+  var done=countDone(completed);
+  document.getElementById("ev-sub").textContent="You completed "+done+" of "+AREAS.length+" goals today.";
+  if(evData.reflection){showEv();return}
+
+  document.getElementById("ev-loading").style.display="flex";clearErr("ev-err");
+  var summary=AREAS.map(function(a){
+    return LABELS[a]+": "+(goals[a]||"(not generated)")+" — "+(completed[a]?"DONE":"skipped");
+  }).join("\n");
+
+  var sys='You are a warm wise mentor. Reply ONLY with raw JSON, no markdown. Format: {"reflection":"2-3 honest warm sentences","wonder":"2 poetic philosophical sentences about growth","tomorrow":"2 sentences making them excited to wake up tomorrow"}';
+  callAI(sys,"Today:\n"+summary,450,function(err,txt){
+    document.getElementById("ev-loading").style.display="none";
+    if(err){evData=fallbackEv()}
+    else{
+      try{
+        var clean=txt.replace(/```json/g,"").replace(/```/g,"").trim();
+        var p=JSON.parse(clean);
+        evData={
+          reflection:p.reflection||fallbackEv().reflection,
+          wonder:p.wonder||fallbackEv().wonder,
+          tomorrow:p.tomorrow||fallbackEv().tomorrow
+        };
+      }catch(e){evData=looseExtract(txt)||fallbackEv()}
+    }
+    save();showEv();
+  });
+}
+function fallbackEv(){
+  return{
+    reflection:"You showed up today. In a world full of distractions, that takes real intention.",
+    wonder:"Every great life is built from ordinary days where someone chose to keep going. You are building yours.",
+    tomorrow:"Tomorrow is a fresh page. The version of you that wakes up will be glad you rested."
+  };
+}
+function looseExtract(txt){
+  try{
+    var r=(txt.match(/"reflection"\s*:\s*"([^"]+)/)||[])[1]||"";
+    var w=(txt.match(/"wonder"\s*:\s*"([^"]+)/)||[])[1]||"";
+    var t=(txt.match(/"tomorrow"\s*:\s*"([^"]+)/)||[])[1]||"";
+    if(r)return{reflection:r,wonder:w,tomorrow:t};
+  }catch(e){}return null;
+}
+function showEv(){
+  document.getElementById("ev-ref-txt").textContent=evData.reflection;
+  document.getElementById("ev-ref").style.display="block";
+  document.getElementById("ev-won-txt").textContent=evData.wonder;
+  document.getElementById("ev-won").style.display="block";
+  document.getElementById("ev-tom-txt").textContent=evData.tomorrow;
+  document.getElementById("ev-tom").style.display="block";
+}
+
+// ── History ───────────────────────────────────────────────────────────────────
+function renderHistory(){
+  var today=todayKey();
+  var days=Object.keys(allData).sort().reverse().slice(0,30);
+  var html="";
+  days.forEach(function(d){
+    var e=allData[d];
+    var dn=countDone(e.completed);
+    var tot=Object.keys(e.goals||{}).length||AREAS.length;
+    var pct=tot>0?Math.round(dn/tot*100):0;
+    var col=pct===100?"var(--fitness)":pct>=50?"var(--career)":"var(--muted)";
+    var isToday=d===today;
+    html+='<div class="hi"><div>'
+      +'<div class="hdate">'+fmtDate(d)+(isToday?' <span style="font-size:11px;color:var(--muted)">· today</span>':"")+'</div>'
+      +'<div class="hsub">'+dn+"/"+AREAS.length+" goals completed</div>"
+      +'</div><div class="hpct" style="color:'+col+'">'+pct+'%</div></div>';
+  });
+  document.getElementById("hist-list").innerHTML=html||'<p style="font-family:system-ui,sans-serif;color:var(--muted);text-align:center;font-size:14px;font-weight:300">No history yet</p>';
+}
+
+// ── Error helpers ─────────────────────────────────────────────────────────────
+function showErr(id,msg){var e=document.getElementById(id);if(e){e.textContent=msg;e.style.display="block"}}
+function clearErr(id){var e=document.getElementById(id);if(e){e.textContent="";e.style.display="none"}}
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+document.getElementById("h-btn").onclick=generate;
+load();
+renderHome();
+</script>
+</body>
+</html>
